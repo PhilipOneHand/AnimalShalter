@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome To Our Animal Shelter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+
+        .menu {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        .pet-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .pet-buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .pet-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .pet-images {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .pet-images img {
+            width: 200px;
+            height: auto;
+            margin: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome To Our Animal Shelter</h1>
+    <div class="menu">
+        <h2>Choose Your Pet:</h2>
+        <div class="pet-buttons">
+            <button onclick="location.href='/cats'">Cats</button>
+            <button onclick="location.href='/dogs'">Dogs</button>
+            <button onclick="location.href='/other'">Other</button>
+        </div>
+    </div>
+    <div class="pet-images">
+        <img src="https://www.alleycat.org/wp-content/uploads/2019/03/FELV-cat.jpg" alt="Cat">
+        <img src="https://hips.hearstapps.com/hmg-prod/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=1.00xw:0.756xh;0,0.0756xh&resize=1200:*" alt="Dog">
+        <img src="https://a-z-animals.com/media/Close-up-of-colorful-scarlet-macaw-parrot.jpg" alt="Other Pet">
+    </div>
+</body>
+</html>

@@ -182,6 +182,77 @@ def add_dog():
 
     return render_template("add_dog.html")
 
+######################### Other Section###########################################
+@app.route("/delete_other/<int:other_id>", methods=["POST"])
+def delete_other(other_id):
+    # Create a cursor object to execute SQL queries
+    cursor = db.cursor()
+
+    # Execute the SQL query to delete the other record
+    cursor.execute("DELETE FROM Other WHERE id=%s", (other_id,))
+    db.commit()
+
+    # Close the cursor
+    cursor.close()
+
+    # Redirect back to the showother page
+    return redirect(url_for('showother'))
+
+
+@app.route("/Show_Other_list", methods=['GET','POST'])
+def showother():
+    # Connect to the database
+    cursor = db.cursor()
+
+    if request.method == 'POST':
+        if 'other_id' in request.form:
+            # Get the other ID entered in the form
+            other_id = request.form['other_id']
+
+            # Execute the SQL query to retrieve dog by ID
+            cursor.execute("SELECT * FROM Other WHERE id=%s", (other_id,))
+            data = cursor.fetchall()
+
+        elif 'animal' in request.form:
+            # Get the animal entered in the form
+            animal = request.form['animal']
+
+            # Execute the SQL query to retrieve other by animal
+            cursor.execute("SELECT * FROM Dogs WHERE breed LIKE %s", ('%' + animal + '%',))
+            data = cursor.fetchall()
+
+
+    else:
+        # Execute the SQL query to retrieve all other
+        cursor.execute("SELECT * FROM Other")
+        data = cursor.fetchall()
+
+    # Close the database connection
+    cursor.close()
+
+    # Render the template with the other data
+    return render_template("Other_list.html", data=data)
+
+@app.route("/add_other", methods=["GET", "POST"])
+def add_other():
+    # Connect to the database
+    cursor = db.cursor()
+
+    if request.method == "POST":
+        animal = request.form["animal"]
+        age = request.form["age"]
+        vaccinated = request.form["vaccinated"]
+
+
+        # Insert the cat into the Dogs table
+        insert_query = "INSERT INTO Other ( animal, age, vaccinate) VALUES ( %s, %s, %s, %s)"
+        cursor.execute(insert_query, ( animal, age, vaccinated))
+        db.commit()
+
+        # Redirect to the Dogs list page
+        return redirect(url_for("showother"))
+
+    return render_template("add_other.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

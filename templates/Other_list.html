@@ -141,7 +141,7 @@
             <form action="{{ url_for('delete_other', other_id=other[0]) }}" method="post" onsubmit="return confirmDelete()">
               <button type="submit" style="background-color: red;">Delete</button>
             </form>
-            <button class="update" onclick="window.location.href='/edit/{{ other[0] }}'">Update</button>
+            <button class="update" onclick="window.location.href='/edit_other/{{ other[0] }}'">Update</button>
           </td>
         </tr>
         {% endfor %}

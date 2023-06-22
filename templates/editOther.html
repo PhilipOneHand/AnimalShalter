@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Other</title>
+    <style>
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 32px;
+        color: #003366;
+        margin-top: 40px;
+        margin-bottom: 20px;
+      }
+
+      form {
+        width: 400px;
+        margin: 0 auto;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-bottom: 12px;
+      }
+
+      input[type="submit"] {
+        background-color: #003366;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        border: none;
+        border-radius: 4px;
+        padding: 12px 24px;
+        margin-top: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0059b3;
+      }
+
+      button {
+        background-color: #003366;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        border: none;
+        border-radius: 4px;
+        padding: 12px 24px;
+        margin-top: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0059b3;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <h1>Edit Animal</h1>
+      <form method="POST" action="/edit_other/{{ other[0] }}">
+        <label for="animal">Breed:</label>
+        <input type="text" id="animal" name="animal" value="{{ other[1] }}" required>
+
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" value="{{ other[2] }}" required>
+
+        <label for="vaccinated">Vaccinated:</label>
+        <input type="text" id="vaccinated" name="vaccinated" value="{{ other[3] }}" required>
+
+        <input type="submit" value="Save">
+      </form>
+      <button onclick="window.location.href='/Show_Other_list'">Cancel</button>
+    </center>
+  </body>

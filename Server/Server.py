@@ -101,6 +101,50 @@ def add_cat():
 
     return render_template("add_cat.html")
 
+@app.route("/edit_cat/<int:cat_id>", methods=['GET', 'POST'])
+def edit_cat(cat_id):
+    if request.method == 'POST':
+        # Retrieve the updated cat information from the form
+        breed = request.form['breed']
+        color = request.form['color']
+        age = request.form['age']
+        vaccinated = request.form['vaccinated']
+        castrated = request.form['castrated']
+
+        # Create a cursor object from the database connection
+        cursor = db.cursor()
+
+        # Update the cat record in the database
+        cursor.execute("UPDATE Cats SET breed=%s, color=%s, age=%s, vaccinated=%s, castrated=%s WHERE id=%s",
+                       (breed, color, age, vaccinated, castrated, cat_id))
+        db.commit()
+
+        # Retrieve the updated cat record from the database
+        cursor.execute("SELECT * FROM Cats WHERE id=%s", (cat_id,))
+        cat = cursor.fetchone()
+
+        # Close the cursor
+        cursor.close()
+
+        # Render the template for cat list with the updated cat data
+        return render_template("Cats_list.html", data=[cat])
+
+    else:
+        # Create a cursor object from the database connection
+        cursor = db.cursor()
+
+        # Retrieve the cat record from the database based on the cat_id
+        cursor.execute("SELECT * FROM Cats WHERE id=%s", (cat_id,))
+        cat = cursor.fetchone()
+
+        # Close the cursor
+        cursor.close()
+
+        # Render the template for cat editing
+        return render_template("editCat.html", cat=cat)
+
+
+
 ################ Dogs Section ###############################
 
 @app.route("/delete_dog/<int:dog_id>", methods=["POST"])
@@ -182,6 +226,48 @@ def add_dog():
 
     return render_template("add_dog.html")
 
+@app.route("/edit_dog/<int:dog_id>", methods=['GET', 'POST'])
+def edit_dog(dog_id):
+    if request.method == 'POST':
+        # Retrieve the updated dog information from the form
+        breed = request.form['breed']
+        color = request.form['color']
+        age = request.form['age']
+        vaccinated = request.form['vaccinated']
+        castrated = request.form['castrated']
+
+        # Create a cursor object from the database connection
+        cursor = db.cursor()
+
+        # Update the dog record in the database
+        cursor.execute("UPDATE Dogs SET breed=%s, color=%s, age=%s, vaccinated=%s, castrated=%s WHERE id=%s",
+                       (breed, color, age, vaccinated, castrated, dog_id))
+        db.commit()
+
+        # Retrieve the updated dog record from the database
+        cursor.execute("SELECT * FROM Dogs WHERE id=%s", (dog_id,))
+        dog = cursor.fetchone()
+
+        # Close the cursor
+        cursor.close()
+
+        # Render the template for dog list with the updated dog data
+        return render_template("Dogs_list.html", data=[dog])
+
+    else:
+        # Create a cursor object from the database connection
+        cursor = db.cursor()
+
+        # Retrieve the dog record from the database based on the dog_id
+        cursor.execute("SELECT * FROM Dogs WHERE id=%s", (dog_id,))
+        dog = cursor.fetchone()
+
+        # Close the cursor
+        cursor.close()
+
+        # Render the template for dog editing
+        return render_template("editDog.html", dog=dog)
+
 ######################### Other Section###########################################
 @app.route("/delete_other/<int:other_id>", methods=["POST"])
 def delete_other(other_id):
@@ -253,6 +339,47 @@ def add_other():
         return redirect(url_for("showother"))
 
     return render_template("add_other.html")
+
+@app.route("/edit_other/<int:other_id>", methods=['GET', 'POST'])
+def edit_other(other_id):
+    if request.method == 'POST':
+        # Retrieve the updated dog information from the form
+        animal = request.form["animal"]
+        age = request.form["age"]
+        vaccinated = request.form["vaccinated"]
+
+        # Create a cursor object from the database connection
+        cursor = db.cursor()
+
+        # Update the dog record in the database
+        cursor.execute("UPDATE Other SET animal=%s,age=%s, vaccinated=%s WHERE id=%s",
+                       (animal, age, vaccinated, other_id))
+        db.commit()
+
+        # Retrieve the updated other record from the database
+        cursor.execute("SELECT * FROM Other WHERE id=%s", (other_id,))
+        other = cursor.fetchone()
+
+        # Close the cursor
+        cursor.close()
+
+        # Render the template for other list with the updated other data
+        return render_template("Other_list.html", data=[other])
+
+    else:
+        # Create a cursor object from the database connection
+        cursor = db.cursor()
+
+        # Retrieve the other record from the database based on the dog_id
+        cursor.execute("SELECT * FROM Other WHERE id=%s", (other_id,))
+        other = cursor.fetchone()
+
+        # Close the cursor
+        cursor.close()
+
+        # Render the template for dog editing
+        return render_template("editOther.html", other=other)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

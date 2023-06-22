@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Dog</title>
+    <style>
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 32px;
+        color: #003366;
+        margin-top: 40px;
+        margin-bottom: 20px;
+      }
+
+      form {
+        width: 400px;
+        margin: 0 auto;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-bottom: 12px;
+      }
+
+      input[type="submit"] {
+        background-color: #003366;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        border: none;
+        border-radius: 4px;
+        padding: 12px 24px;
+        margin-top: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0059b3;
+      }
+
+      button {
+        background-color: #003366;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        border: none;
+        border-radius: 4px;
+        padding: 12px 24px;
+        margin-top: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0059b3;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <h1>Edit Dog</h1>
+      <form method="POST" action="/edit_dog/{{ dog[0] }}">
+        <label for="breed">Breed:</label>
+        <input type="text" id="breed" name="breed" value="{{ dog[1] }}" required>
+
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="color" value="{{ dog[2] }}" required>
+
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" value="{{ dog[3] }}" required>
+
+        <label for="vaccinated">Vaccinated:</label>
+        <input type="text" id="vaccinated" name="vaccinated" value="{{ dog[4] }}" required>
+
+        <label for="castrated">Castrated:</label>
+        <input type="text" id="castrated" name="castrated" value="{{ dog[5] }}" required>
+
+        <input type="submit" value="Save">
+      </form>
+      <button onclick="window.location.href='/Show_Dogs_list'">Cancel</button>
+    </center>
+  </body>

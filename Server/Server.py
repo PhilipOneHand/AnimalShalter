@@ -6,16 +6,47 @@
 
 from flask import Flask ,render_template, request, url_for, redirect
 import mysql.connector
+import time
+import os
 app = Flask(__name__,template_folder="../templates")
 
 
-db = mysql.connector.connect(
-    host="localhost",       # MySQL host (container name or IP address)
-    port=3307,              # MySQL port in my local pc
-    user="root",            # MySQL username
-    password="pass1234",    # MySQL password
-    database="Animal_Shelter"   # MySQL database name
-)
+# db = mysql.connector.connect(
+#     # host="localhost",       # MySQL host (container name or IP address)
+#     # port=3307,              # MySQL port in my local pc
+#     # user="root",            # MySQL username
+#     # password="pass1234",    # MySQL password
+#     # database="Animal_Shelter"   # MySQL database name
+#     host=os.environ.get("MYSQL_HOST"),
+#     port=os.environ.get("MYSQL_PORT"),
+#     user=os.environ.get("MYSQL_USER"),
+#     password=os.environ.get("MYSQL_PASSWORD"),
+#     database=os.environ.get("MYSQL_DATABASE")
+# )
+max_retries = 10
+retry_delay = 5
+
+# Retry connecting to the database
+for retry in range(max_retries):
+    try:
+        # Attempt to connect to the MySQL container
+        db = mysql.connector.connect(
+            host="db",
+            port=3306,
+            user="root",
+            password="pass1234",
+            database="Animal_Shelter"
+        )
+
+        # Connection successful, break out of the retry loop
+        break
+    except mysql.connector.Error as err:
+        print(f"Failed to connect to the database (retry {retry + 1}/{max_retries}): {err}")
+        # Wait for some time before retrying
+        time.sleep(retry_delay)
+else:
+    # All retries failed, handle the error appropriately
+    print("Could not establish a connection to the database.")
 @app.route("/", methods=['GET'])
 def index():
     return render_template("index.html")
@@ -382,6 +413,6 @@ def edit_other(other_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
 
 

@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    build: ./Server/
+    depends_on:
+      - db
+    networks:
+      - my_network
+
+  db:
+    build: ./DB/
+    networks:
+      - my_network
+
+networks:
+  my_network:

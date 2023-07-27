@@ -4,11 +4,13 @@ FROM mysql:latest
 WORKDIR /app
 # Create a volume for MySQL data
 VOLUME /var/lib/mysql
+EXPOSE 3306
 
 # Set environment variables
 ENV ACCEPT_EULA=Y
 ENV MYSQL_ROOT_PASSWORD=pass1234
-ENV MSSQL_TCP_PORT=3307
+ENV MYSQL_DATABASE=Animal_Shelter
+
 
 
 # Copy the SQL script to the container

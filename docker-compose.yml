@@ -1,11 +1,17 @@
 version: "3.8"
 services:
   app:
-    build: ./Server/
+    #build: ./Server/
+    build:
+      context: ./
+      dockerfile: Server/Dockerfile
     depends_on:
       - db
     networks:
       - my_network
+    volumes:
+      # Mount the 'templates' directory to the '/app/templates' directory inside the container
+      - ./templates:/app/templates
 
   db:
     build: ./DB/

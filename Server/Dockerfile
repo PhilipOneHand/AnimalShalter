@@ -1,5 +1,5 @@
 FROM python:latest
-WORKDIR /code
+#WORKDIR /app
 
 # Set the environment variables
 ENV MYSQL_HOST=db
@@ -8,9 +8,10 @@ ENV MYSQL_USER=root
 ENV MYSQL_PASSWORD=pass1234
 ENV MYSQL_DATABASE=Animal_Shelter
 
-ADD requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-COPY Server.py /server/app.py
-COPY ../templates /templates
+ADD Server/requirements.txt app/requirements.txt
+RUN pip install -r app/requirements.txt
 
-CMD ["python", "-u", "app.py"]
+COPY Server/Server.py /app/app.py
+COPY templates/ /templates/
+
+CMD ["python", "-u", "app/app.py"]

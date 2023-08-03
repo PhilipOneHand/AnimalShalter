@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: databases
+spec:
+  replicas: 1
+  serviceName: databases-service
+  selector:
+    matchLabels:
+      app: databases-db
+  template:
+    metadata:
+      labels:
+        app: databases-db
+    spec:
+      containers:
+        - name: databases-db
+          image: nikole647/pythonproject3-db:latest
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "pass1234"
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: databases-service
+spec:
+  selector:
+    app: databases-db
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306

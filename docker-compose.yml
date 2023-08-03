@@ -1,10 +1,10 @@
 version: "3.8"
 services:
   app:
-    #build: ./Server/
-    build:
-      context: ./
-      dockerfile: Server/Dockerfile
+#    build:
+#      context: ./
+#      dockerfile: Server/Dockerfile
+    image: nikole647/pythonproject3-app:latest
     depends_on:
       - db
     networks:
@@ -14,7 +14,7 @@ services:
       - ./templates:/app/templates
 
   db:
-    build: ./DB/
+    image: nikole647/pythonproject3-db
     networks:
       - my_network
 

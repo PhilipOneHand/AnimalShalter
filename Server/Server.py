@@ -7,22 +7,10 @@
 from flask import Flask ,render_template, request, url_for, redirect
 import mysql.connector
 import time
-import os
-app = Flask(__name__,template_folder="../templates")
 
 
-# db = mysql.connector.connect(
-#     # host="localhost",       # MySQL host (container name or IP address)
-#     # port=3307,              # MySQL port in my local pc
-#     # user="root",            # MySQL username
-#     # password="pass1234",    # MySQL password
-#     # database="Animal_Shelter"   # MySQL database name
-#     host=os.environ.get("MYSQL_HOST"),
-#     port=os.environ.get("MYSQL_PORT"),
-#     user=os.environ.get("MYSQL_USER"),
-#     password=os.environ.get("MYSQL_PASSWORD"),
-#     database=os.environ.get("MYSQL_DATABASE")
-# )
+app=Flask(__name__)
+
 max_retries = 10
 retry_delay = 5
 

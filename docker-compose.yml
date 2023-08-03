@@ -9,9 +9,9 @@ services:
       - db
     networks:
       - my_network
-    volumes:
-      # Mount the 'templates' directory to the '/app/templates' directory inside the container
-      - ./templates:/app/templates
+#    volumes:
+#      # Mount the 'templates' directory to the '/app/templates' directory inside the container
+#      - ./templates:/app/templates
 
   db:
     image: nikole647/pythonproject3-db

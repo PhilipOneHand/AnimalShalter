@@ -17,10 +17,7 @@ spec:
           image: nikole647/pythonproject3-app:latest
           envFrom:
             - secretRef:
-                name: appsecrets
-          env:
-            - name: MYSQL_HOST
-              value: databases-service
+                name: thisissodi
           ports:
             - containerPort: 5000
 ---

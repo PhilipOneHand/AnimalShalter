@@ -30,6 +30,7 @@ for retry in range(max_retries):
         )
 
 
+
         # Connection successful, break out of the retry loop
         break
     except mysql.connector.Error as err:

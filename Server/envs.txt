@@ -1,0 +1,11 @@
+data base container:
+ MYSQL_ROOT_PASSWORD--הסיסמא שאנחנו מגדירים עבור היוזר רוט
+ MYSQL_DATABASE - השם של הדאטא בייס
+
+
+app:
+  DB_SERVICE_HOST -משתנה סביבה שמיוצר אוטומטית בקוברנטיס ביצירת סרווס
+  DB_SERVICE_PORT-משתנה סביבה שמיוצר אוטומטית בקוברנטיס ביצירת סרווס
+  MYSQL_ROOT_USER - היוזר רוט שמוגדר בצורה דיפולטיבית בתוך הדאטא בייס
+  MYSQL_ROOT_PASSWORD-הסיסמא שאנחנו מגדירים עבור היוזר רוט
+  MYSQL_DATABASE- השם של הדאטא בייס

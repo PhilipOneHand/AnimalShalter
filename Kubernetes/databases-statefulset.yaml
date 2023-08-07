@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: databases-db
-          image: nikole647/pythonproject3-db:latest
+          image: nikole647/pythonproject3-db:test
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "pass1234"
@@ -33,3 +33,4 @@ spec:
     - protocol: TCP
       port: 3306
       targetPort: 3306
+

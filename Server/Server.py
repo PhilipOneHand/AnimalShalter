@@ -7,8 +7,10 @@
 from flask import Flask ,render_template, request, url_for, redirect
 import mysql.connector
 import time
-
-
+import os
+# from dotenv import load_dotenv
+#
+# load_dotenv()
 app=Flask(__name__)
 
 max_retries = 10
@@ -19,12 +21,15 @@ for retry in range(max_retries):
     try:
         # Attempt to connect to the MySQL container
         db = mysql.connector.connect(
-            host="db",
-            port=3306,
-            user="root",
-            password="pass1234",
-            database="Animal_Shelter"
+            host=os.getenv("MYSQL_HOST"),
+            port=os.getenv("MYSQL_PORT",3306),
+            user=os.getenv("MYSQL_USER"),
+            password=os.getenv("MYSQL_PASSWORD"),
+            database=os.getenv("MYSQL_DATABASE")
+
         )
+
+
 
         # Connection successful, break out of the retry loop
         break

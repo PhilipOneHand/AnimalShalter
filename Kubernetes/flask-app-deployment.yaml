@@ -15,14 +15,35 @@ spec:
       containers:
         - name: flask-app
           image: nikole647/pythonproject3-app:latest
-          envFrom:
-            - secretRef:
-                name: appsecrets
-          env:
-            - name: MYSQL_HOST
-              value: databases-service
+
           ports:
             - containerPort: 5000
+          env:
+            - name: MYSQL_USER # Setting USER username on mysql From a 'Secret'
+              valueFrom:
+                secretKeyRef:
+                  name: thisissodi
+                  key: username
+            - name: MYSQL_PASSWORD # Setting USER username on mysql From a 'Secret'
+              valueFrom:
+                secretKeyRef:
+                  name: thisissodi
+                  key: password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: thisissodi
+                  key: dbname
+            - name: MYSQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: thisissodi
+                  key: host
+            - name: MYSQL_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: thisissodi
+                  key: port
 ---
 apiVersion: v1
 kind: Service
@@ -36,3 +57,4 @@ spec:
       port: 80
       targetPort: 5000
   type: LoadBalancer
+

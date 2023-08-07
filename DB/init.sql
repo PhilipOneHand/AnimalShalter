@@ -1,4 +1,5 @@
 CREATE DATABASE IF NOT EXISTS Animal_Shelter;
+USE Animal_Shelter;
 CREATE TABLE Cats (
     id INT AUTO_INCREMENT PRIMARY KEY,
     breed VARCHAR(255),

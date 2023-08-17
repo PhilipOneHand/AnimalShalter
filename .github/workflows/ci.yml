@@ -1,59 +1,36 @@
-name: CI Pipeline
+name: ci
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches:
+      - "main"
 
 jobs:
-
-  build_and_test:
+  build:
     runs-on: ubuntu-latest
-      
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-        
-      - name: Get Commit SHA
-        id: commit_sha
-        run: echo "::set-output name=sha::$(git rev-parse HEAD)"
-
-      - name: Run Local Test
-        run: |
-          # Run Docker Compose locally
-          docker-compose up -d
-
-          # Wait for a moment to let containers start
-          sleep 20
-
-          # Test if the app is running by making a request to localhost:5000
-          response_code=$(curl -s -o /dev/null -w "%{http_code}" http://172.28.1.3:5000)
-
-          # Exit if response code is not 200
-          if [ $response_code -ne 200 ]; then
-            echo "Local test failed with response code: $response_code"
-            exit 1
-          fi
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Login to Docker Hub
-        uses: docker/login-action@v2.2.0
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-
-      - name: Build and Push MySQL Image
-        uses: docker/build-push-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push mysql_db
+        uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./DB
           file: ./DB/Dockerfile
           push: true
-          tags: docker.io/nikole647/mysql-${{ steps.commit_sha.outputs.sha }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mysql:latest
 
-      - name: Build and Push Python App Image
-        uses: docker/build-push-action@v2
+      - name: Build and push app
+        uses: docker/build-push-action@v4
         with:
-          context: ./app
-          file: ./app/Dockerfile
+          context: ./Server
+          file: ./Server/Dockerfile
           push: true
-          tags: docker.io/nikole647/python-app-${{ steps.commit_sha.outputs.sha }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app:latest

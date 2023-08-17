@@ -34,4 +34,4 @@ ENV MYSQL_ROOT_PASSWORD pass1234
 
 
 # Copy the SQL script to the container
-COPY DB/init.sql /docker-entrypoint-initdb.d
+COPY /init.sql /docker-entrypoint-initdb.d

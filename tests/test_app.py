@@ -1,8 +1,8 @@
 import requests
 
 def test_ping_server():
-
-    url = 'http://192.168.32.3:5000/'
+    # change the test
+    url = 'http://172.28.1.3:5000/'
 
     # Send a GET request to the server
     response = requests.get(url)

@@ -5,7 +5,8 @@ services:
 #    build:
 #      context: ./
 #      dockerfile: Server/Dockerfile
-    image: nikole647/pythonproject3-app:latest
+#    image: nikole647/pythonproject3-app:latest
+    image: nikole647/app:latest
     ports:
     - "5000:5000"
     environment:
@@ -24,7 +25,8 @@ services:
 #    build:
 #      context: ./
 #      dockerfile: DB/Dockerfile
-    image: nikole647/pythonproject3-db:test
+#    image: nikole647/pythonproject3-db:test
+    image: nikole647/mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: "pass1234"
     networks:
